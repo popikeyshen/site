@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!-- Головна сторінка -->
   <url>
     <loc>https://viacheslav-popika.com/</loc>
     <lastmod>2025-08-17</lastmod>
@@ -9,12 +7,10 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- PDF-файл -->
   <url>
-    <loc>https://raw.githubusercontent.com/popikeyshen/site/main/Machine%20Learning%20Models%20for%20EOS%20SAT-1%20Satellite%20Image%20Enhancing.pdf</loc>
+    <loc>https://viacheslav-popika.com/Machine%20Learning%20Models%20for%20EOS%20SAT-1%20Satellite%20Image%20Enhancing.pdf</loc>
     <lastmod>2025-08-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
   </url>
-
 </urlset>
