@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+        onload="renderMathInElement(document.body);"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Machine Learning Models for EOS SAT-1 Satellite Image Enhancing">
+  <title>Machine Learning Models for EOS SAT-1 Satellite Image Enhancing</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      line-height: 1.6;
+      margin: 0 auto;
+      padding: 2rem;
+      max-width: 900px;
+      background: #fdfdfd;
+      color: #222;
+    }
+    h1, h2, h3 {
+      font-family: Arial, sans-serif;
+      margin-top: 2rem;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.8em;
+    }
+    h2 {
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.3rem;
+    }
+    .authors {
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+    .links {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .links a {
+      display:inline-block;
+      padding:0.6rem 1.2rem;
+      margin:0.3rem;
+      background:#0066cc;
+      color:white;
+      text-decoration:none;
+      border-radius:6px;
+      font-size:0.95em;
+    }
+    .links a:hover {
+      background:#004d99;
+    }
+    .pub-info {
+      background: #f4f4f4;
+      border-left: 4px solid #0066cc;
+      padding: 1rem;
+      margin-bottom: 2rem;
+      font-size: 0.95em;
+    }
+    figure {
+      margin: 2rem auto;
+      text-align: center;
+    }
+    figure img {
+      max-width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    figure figcaption {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 0.5rem;
+    }
+    .references li {
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>MACHINE LEARNING MODELS FOR EOS SAT-1 SATELLITE IMAGE ENHANCING</h1>
+  <div class="authors">
+    <p><strong>Viacheslav Popika</strong>, <strong>Lidia Lelechenko</strong><br>
+    EOS Data Analytics</p>
+  </div>
+
+  <!-- Links to PDF and IEEE -->
+  <div class="links">
+    <a href="https://raw.githubusercontent.com/popikeyshen/site/main/Machine%20Learning%20Models%20for%20EOS%20SAT-1%20Satellite%20Image%20Enhancing.pdf" target="_blank">📄 Download PDF</a>
+    <a href="https://ieeexplore.ieee.org/document/10640387" target="_blank">🔗 IEEE Xplore</a>
+  </div>
+
+  <!-- Publication info -->
+  <div class="pub-info">
+    <p><strong>Published in:</strong> IGARSS 2024 - 2024 IEEE International Geoscience and Remote Sensing Symposium<br>
+    <strong>Date of Conference:</strong> 07–12 July 2024<br>
+    <strong>Date Added to IEEE Xplore:</strong> 05 September 2024<br>
+    <strong>DOI:</strong> 10.1109/IGARSS53475.2024.10640387</p>
+  </div>
+
+  <h2>ABSTRACT</h2>
+  <p>
+  &nbsp;&nbsp;&nbsp;&nbsp; This study delves into the realm of satellite image
+  super-resolution, not only focusing on increasing resolution
+  but also overcoming unique distortions. It addresses the
+  challenges posed by the absence of training data...
+  </p>
+
+
+  <p><em>Key words— Satellite data, machine learning, image enhancing, image deblurring, super-resolution</em></p>
+
+  <h2>1. INTRODUCTION</h2>
+  <p>
+    Satellite imaging serves as an invaluable tool for
+comprehensive Earth observation, enabling us to monitor
+and analyze diverse landscapes with unprecedented detail.
+Despite the strides made in satellite technology, the quest
+for higher precision persists, driving the need for innovative
+approaches in image enhancement.
+<p>
+
+</p>
+In the pursuit of refining satellite imagery, two
+critical challenges demand attention: image distorsions and
+the imperative to ensure consistency in essential agro-
+indices. This study embarks on a journey to address these
+challenges
+comprehensively,
+introducing
+advanced
+techniques that not only mitigate the effects of image
+distorsions but also guarantee the stability of crucial agro-
+indices, such as the NDVI (Normalized Difference
+Vegetation Index).
+<p>
+
+</p>
+Atmospheric blur, defocusing, and noise can have
+different parameters. The task of image enhancement is to
+determine these parameters and solve the inverse function of
+these distortions. This will allow us to reproduce a clear
+image. The inverse distortion function is represented in (1):
+</p>
+
+
+<p>where <strong>Φ</strong> is the image distortion function,</p>
+<p><strong>θη</strong> is a parameter vector,</p>
+<p><strong>Is</strong> is the latent sharp version of the distorted image Id.</p>
+
+<p>
+  \[
+  I_s = \Phi^{-1}\left( I_d ; \theta_\eta \right)                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  (1)
+  \]   
+</p>
+
+<p>
+In real-world scenarios, the distortion model Φ −1 is
+unknown, necessitating its determination. The distortion
+function can be very complex to calculate and even more
+challenging to solve for the inverse problem.
+<p>
+
+</p>
+Neural networks contribute to solving the task of
+approximating functions that are challenging or even
+impossible to define analytically. They learn from extensive
+datasets, aiming to make predictions or replicate input-
+output relationships optimally. However, the challenge
+arises when dealing with satellite imagery, as we lack the
+capability to generate thousands of images from our desired
+satellite, followed by creating thousands of identical images
+free from noise, blur, and other distortions for training the
+neural network.
+<p>
+
+</p>
+In our approach, we aim to shift away from the
+endeavor of seeking the parameters and solution of the
+distortion function. Instead, our focus lies on emulating the
+distortion function. This method facilitates the generation of
+an unlimited amount of synthetically distorted data,
+matching distortion parameters, while preserving clear
+originals without any distortion. This capability enables the
+training of a neural network for image enhancement using a
+batch of both high-quality and distorted images as inputs.
+  </p>
+
+  <h2>2. APPROACH</h2>
+  <p>
+In this section, we will describe our approach to make
+image enhancement:
+<p>
+
+</p>
+<strong>Stage 1:</strong>  We train a distortion network, referred to as the
+"Distortion Network". For training we use one snapshot
+from our satellite and one high-quality template fromanother source. The network is trained to approximate the
+high-resolution and quality features of the template onto our
+lower quality satellite image.
+<p>
+
+</p>
+<strong>Stage 2:</strong> In the next, we utilize the Distortion Network to
+generate training data by inputting a high-quality image
+dataset. The network then produces a diverse set of data
+with distortions analogous to those introduced by our
+distortion function.
+<p>
+
+</p>
+<strong>Stage 3:</strong>  In the third phase, we leverage both high-quality
+and low-quality datasets obtained through the Distortion
+Network. These datasets serve as inputs for training the
+Super-Resolution
+Generative
+Adversarial
+Network
+(SRGAN)[1]. By utilizing this approach, we train SRGAN
+to enhance our images, allowing the model to learn and
+generate high-resolution representations from low-resolution
+inputs distorted in accordance with our specific distortion
+function. The outcome is a model capable of improving the
+quality of our satellite snapshots, addressing distortions and
+enhancing details.
+<p>
+
+</p>
+<strong>Stage 4:</strong>  The final stage focuses on post-processing the
+output image, addressing potential nonlinear changes
+introduced by the neural network. The primary method
+involves comparing images both before and after neural
+network processing, followed by incorporating the
+difference into the enhanced image to counteract
+nonlinearity. This ensures the uniformity of average values
+across channels, NDVI, and similar characteristics.
+  </p>
+
+  <h2>3. EXPERIMENTS</h2>
+  <p>
+    For most cases of super-resolution testing in
+satellite imagery, as in [2], the evaluation of results is
+conducted by comparing them with high-resolution images
+used to train the neural network. In our case, as in many
+real-world scenarios, there are no available high-resolution
+images corresponding to the same time and location.
+Therefore, we will conduct testing in two stages. Firstly, we
+will visually compare and verify the characteristics on real
+images, and secondly, we will create synthetically distorted
+data and their super-resolution images for evaluating results
+using PSNR metrics and SSIM.
+<p>
+</p>
+<strong>For the first part</strong> we conducted all experiments
+using real data from the EOS SAT-1 satellite. EOS SAT-1 is
+an optical satellite equipped with 11 agri-related bands that
+provide valuable insights to farmers and other industry
+stakeholders. We conducted experiments both on a per-
+channel basis and across multiple channels. An example of
+input and improved image will be presented in Figure 1.
+  </p>
+
+  <figure>
+    <img src="fig1.png" alt="Fig. 1 Example of input and improved image">
+    <figcaption>Fig. 1. displays a real EOS SAT image on the left and the
+enhanced result for the RGB image on the right.</figcaption>
+  </figure>
+
+<p>
+Example of visual comparision of proposed
+approach in Figure 2 shows that other single image super-
+resolution methods are not very effective for images like
+EOS SAT-1. However, our approach allows for significant
+enhancement in image quality.
+</p>
+
+  <figure>
+    <img src="fig2.png" alt="Fig. 2 Visual comparison with other methods">
+    <figcaption>Fig. 2. Visual comparisons of the proposed method with
+other SR methods on a panchromatic image:
+a) original low resolution image b) EDSR[7]
+c) SRGAN[1] (standart aproach) d) ours</figcaption>
+  </figure>
+
+<p>
+In Table 1, we provide data for the image before
+and after enhancement, using the example of the
+panchromatic channel. The Laplacian variance metric shows
+increased sharpness, while the mean value metric indicates
+no negative nonlinear changes to the image.
+</p>
+
+<table border="1" cellspacing="0" cellpadding="6" style="border-collapse:collapse; margin: 1.5rem auto; text-align:center; width:80%;">
+  <caption style="caption-side:top; font-weight:bold; margin-bottom:0.5rem;">
+    Table I. PAN image parameters before and after enhancement
+  </caption>
+  <thead style="background:#f4f4f4;">
+    <tr>
+      <th></th>
+      <th><em>Before</em></th>
+      <th><em>After</em></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left;">Size</td>
+      <td>400 × 300</td>
+      <td>800 × 600</td>
+    </tr>
+    <tr>
+      <td style="text-align:left;">Resolution</td>
+      <td>1.5m</td>
+      <td>0.75m</td>
+    </tr>
+    <tr>
+      <td style="text-align:left;">Mean</td>
+      <td>26.6</td>
+      <td>26.6</td>
+    </tr>
+    <tr>
+      <td style="text-align:left;">Laplacian variance [4]</td>
+      <td>2.1 <br>(8-bit size 400×300)</td>
+      <td>43.4 <br>(8-bit size 400×300)</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<p>
+We conducted numerical experiments using EOS
+SAT data to compare the NDVI values before and after
+enhancement. To construct the NDVI, we used the RED and
+NIR channels. SRGAN enhancement and post-processing
+were applied to each channel, followed by the calculation of
+a higher-resolution NDVI based on them. The NDVI images
+are presented in Figure 3.
+</p>
+
+
+
+  <figure>
+    <img src="fig3.png" alt="Fig. 3 NDVI comparison">
+    <figcaption>Fig. 3. displays the field's NDVI before (top)
+and after (botom) enhancement with NDVI histograms.</figcaption>
+  </figure>
+
+<strong>For the second part</strong>, we use synthetically distorted
+data to compare the enhanced results with their undistorted
+counterparts. This allows us to measure numerical
+characteristics and compare them to those obtained using
+other enhancement approaches.
+
+<table border="1" cellspacing="0" cellpadding="6" style="border-collapse:collapse; margin: 1.5rem auto; text-align:center; width:70%;">
+  <caption style="caption-side:top; font-weight:bold; margin-bottom:0.5rem;">
+    Table II. SSIM and PSNR metrics for synthetic data
+  </caption>
+  <thead style="background:#f4f4f4;">
+    <tr>
+      <th></th>
+      <th><em>PSNR</em></th>
+      <th><em>SSIM</em></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left;">EDSR [7]</td>
+      <td>26.38</td>
+      <td>0.72</td>
+    </tr>
+    <tr>
+      <td style="text-align:left;">SRGAN [1]</td>
+      <td>26.33</td>
+      <td>0.71</td>
+    </tr>
+    <tr>
+      <td style="text-align:left;">OUR</td>
+      <td>31.66</td>
+      <td>0.94</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+  <h2>4. DISCUSSION</h2>
+  <p>
+    Analyzing our work and similar publications [9]
+[10], we can assert that our approach has advantages over
+popular state-of-the-art methods [1][7]. Using a distortion
+model, as in our work and [9], results in better image
+reconstruction compared to conventional super-resolution
+pipelines. Our training method differs from [9] in that they
+use a random variation within the range of 0.2–0.8. In
+contrast, we found this random blur approach to be
+ineffective since the randomly selected distortions did not
+match our real model. Consequently, our approach better
+selects the appropriate distortion for training, as it replicates
+the real model. One drawback of this method is its validity
+only for the specific satellite for which the model is
+designed.
+<p>
+
+</p>
+Using neural networks for image processing
+significantly enhances image quality and resolution.
+However, unlike precise mathematical formulas, neural
+networks' weights and performance depend on factors like
+training time and dataset size [5][6]. Thus, despite
+improvements in resolution and reduced blurring, the mean
+value, standard deviation, and color histogram may change.
+Most
+super-resolution
+pipelines
+involve
+normalization,
+neural
+network
+inference,
+and
+denormalization. These processes are standardized and
+widely documented, ensuring consistent mean and standard
+deviation coefficients at both input and output, even if the
+output visually differs.
+<p>
+
+</p>
+The neural network's weights, influenced by
+training time, architecture, and dataset, mean that statistical
+characteristics like mean, standard deviation, or per-pixel
+difference can vary from the original. Unlike mathematical
+methods such as cubic interpolation, standard normalization
+and denormalization usually lack feedback for verifying
+these characteristics post-super-resolution.
+<p>
+
+</p>
+In many approaches, this is addressed by better
+network architecture, changing loss functions, and other
+methods [12]. In publication [10], histogram normalization
+was used on the already trained network to achieve better
+quality. We used a similar approach, shown in Figure 4,
+which allows us to avoid the aforementioned drawbacks.
+<p>
+
+  <figure>
+    <img src="fig4.png" alt="Fig. 4 Post-processing example">
+    <figcaption>Fig. 4. Simplified post-processing example</figcaption>
+  </figure>
+
+
+
+</p>
+This approach enabled us to achieve our results.
+Analyzing our work and the reviewed publications, it can
+be concluded that such an approach is beneficial where
+high-quality image enhancement is crucial.
+<p>
+
+
+  </p>
+
+  <h2>5. CONCLUSION</h2>
+  <p>
+    In conclusion, our multi-stage approach to image
+enhancement integrates the training of a Distortion Network
+and the utilization of a Super-Resolution Generative
+Adversarial Network (SRGAN). By training the Distortion
+Network to emulate distortion functions and generating
+diverse training data, we empower SRGAN to enhance
+satellite images, effectively addressing specific distortions.
+The post-processing stage ensures consistency and mitigates
+nonlinear changes introduced by the neural network,
+maintaining uniformity in average values across channels
+and key characteristics. This comprehensive methodology
+contributes to the advancement of image enhancement for
+satellite-based agricultural monitoring.
+  </p>
+
+  <h2>6. REFERENCES</h2>
+  <ol class="references">
+  
+    <li>Ledig, C., Theis, L., Huszar, F., Caballero, J., Aitken,
+A.P., Tejani, A., Totz, J., Wang, Z., Shi, W.: “Photo-
+realistic single image super-resolution using a generative
+adversarial network”. CoRR abs/1609.04802 (2016)</li>
+
+<li> Jaskaran Singh Puri and Andre Kotze. “Evaluation of
+srgan algorithm for superresolution of satellite imagery on
+different sensors.” 25th AGILE Conference on Geographic
+Information Science, 2022.</li>
+
+<li> M. U. Müller, N. Ekhtiari, R. M. Almeida, and C. Rieke,
+“Super-resolution of multispectral satellite images using
+convolutional neural networks,” ISPRS Annals of the
+Photogrammetry, Remote Sensing and Spatial Information
+Sciences, vol. V-1-2020, pp. 33–40, 2020.</li>
+
+<li> R. Bansal, G. Raj and T. Choudhury, "Blur image
+detection using Laplacian operator and open-CV", Proc. Int.
+Conf. Syst. Model. Advancement Res. Trends (SMART), pp.
+63-67, Nov. 2016.</li>
+    
+<li> Zhang, C., Bengio, S., Hardt, M., Recht, B., and Vinyals, O. Understanding deep learning requires rethinking generalization. arXiv preprint arXiv:1611.03530, 2016.</li>
+
+<li> Shalev-shwartz, S. and Ben-david, S. (2014) Understanding Machine Learning from Theory to Algorithms. Cambridge University Press</li>
+
+<li> Bee Lim Sanghyun Son Heewon Kim Seungjun Nah Kyoung Mu Lee, “Enhanced Deep Residual Networks for Single Image Super-Resolution“, arXiv preprint arXiv:1707.02921, 2017.</li>
+
+<li> Zhihao Wang, Jian Chen, Steven C.H. Hoi, “Deep Learning for Image Super-resolution: A Survey“, arXiv preprint arXiv:1902.06068, 2019.</li>
+
+<li> Choi, Y.; Han, S.; Kim, Yongwoo. A No-Reference CNN-Based Super-Resolution Method for KOMPSAT-3 Using Adaptive Image Quality Modification. 
+Remote Sens. 2021, 13, 3301 doi.org/10.3390/rs13163301</li>
+
+<li> Xiangyu Xu, Yongrui Ma, Wenxiu Sun, Ming-Hsuan Yang, “Exploiting Raw Images for Real-Scene Super-Resolution”, arXiv preprint arXiv:2102.01579, 2021.</li>
+
+    <!-- і далі як у тексті -->
+  </ol>
+
+</body>
+</html>
+
