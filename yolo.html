@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="YOLO architecture evolution from v3 to v8">
+  <title>YOLO Architecture Evolution</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      line-height: 1.6;
+      margin: 0 auto;
+      padding: 2rem;
+      max-width: 900px;
+      background: #fdfdfd;
+      color: #222;
+    }
+    h1, h2 {
+      font-family: Arial, sans-serif;
+      margin-top: 2rem;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.8em;
+    }
+    .version {
+      background: #f9f9f9;
+      border-left: 4px solid #0066cc;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>YOLO Architecture Evolution (v3 → v8)</h1>
+
+  <p>
+    The YOLO (You Only Look Once) family of object detection models has evolved rapidly since its introduction. 
+    Below is a concise overview of the main architectural changes and improvements starting from <strong>YOLOv3</strong>.
+  </p>
+
+  <div class="version">
+    <h2>YOLOv3 (2018)</h2>
+    <ul>
+      <li>Introduced <strong>Darknet-53</strong> backbone (53 convolutional layers, residual connections).</li>
+      <li>Multi-scale prediction: 3 detection layers at different feature map resolutions (good for small/medium/large objects).</li>
+      <li>Loss function improved with <em>binary cross entropy</em> for class predictions.</li>
+    </ul>
+  </div>
+
+  <div class="version">
+    <h2>YOLOv4 (2020)</h2>
+    <ul>
+      <li>Implemented on <strong>CSPDarknet53</strong> backbone (Cross Stage Partial connections).</li>
+      <li>Added <strong>SPP (Spatial Pyramid Pooling)</strong> and <strong>PAN (Path Aggregation Network)</strong> neck.</li>
+      <li>Training tricks: Mosaic data augmentation, DropBlock regularization, CIoU loss.</li>
+      <li>Much better accuracy and speed balance compared to YOLOv3.</li>
+    </ul>
+  </div>
+
+  <div class="version">
+    <h2>YOLOv5 (2020, Ultralytics)</h2>
+    <ul>
+      <li>Not an official paper, but a PyTorch implementation (very popular in industry).</li>
+      <li>Introduced easy training pipeline, modular design.</li>
+      <li>Backbone: CSPDarknet variants, plus auto-learning bounding box anchors.</li>
+      <li>Variants: <em>YOLOv5s, v5m, v5l, v5x</em> (small → extra large).</li>
+    </ul>
+  </div>
+
+  <div class="version">
+    <h2>YOLOv6 (2022, Meituan)</h2>
+    <ul>
+      <li>Optimized for real-time inference in industrial applications.</li>
+      <li>Introduced <strong>RepVGG-style</strong> backbone with efficient training–inference decoupling.</li>
+      <li>Anchor-free head option.</li>
+    </ul>
+  </div>
+
+  <div class="version">
+    <h2>YOLOv7 (2022)</h2>
+    <ul>
+      <li>Unified training of <strong>convolutional and transformer</strong>-based models.</li>
+      <li>Extended E-ELAN backbone for deeper networks without performance drop.</li>
+      <li>Introduced model re-parameterization and dynamic label assignment.</li>
+      <li>State-of-the-art real-time detection on COCO at the time.</li>
+    </ul>
+  </div>
+
+  <div class="version">
+    <h2>YOLOv8 (2023, Ultralytics)</h2>
+    <ul>
+      <li>Anchor-free design by default.</li>
+      <li>New head architecture similar to modern detectors (Decoupled classification/regression).</li>
+      <li>Supports detection, segmentation, pose estimation.</li>
+      <li>Available in sizes: <em>n, s, m, l, x</em>.</li>
+    </ul>
+  </div>
+
+  <p>
+    In summary, YOLO has progressed from a simple real-time detector (v3) to a versatile family (v8) supporting multiple computer vision tasks, 
+    with improvements in backbone networks, training strategies, and loss functions.
+  </p>
+
+</body>
+</html>

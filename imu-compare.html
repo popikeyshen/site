@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Comparison of MPU-6050 and LSM6D* IMUs">
+  <title>MPU-6050 vs LSM6D* — IMU Comparison</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0 auto;
+      padding: 2rem;
+      max-width: 900px;
+      background: #fafafa;
+      color: #222;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      margin-top: 2rem;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.3rem;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1.5rem 0;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.6rem;
+      text-align: center;
+    }
+    th {
+      background: #f2f2f2;
+    }
+    caption {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .highlight {
+      background: #f4f9ff;
+      border-left: 4px solid #0066cc;
+      padding: 1rem;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>MPU-6050 vs LSM6D* — IMU Comparison</h1>
+
+  <p>
+    Two of the most common gyroscope/IMU sensors you’ll encounter in DIY projects, robotics, 
+    and wearables are the <strong>MPU-6050</strong> from InvenSense and the 
+    <strong>LSM6D*</strong> family (e.g. LSM6DS3, LSM6DSM, LSM6DSOX) from STMicroelectronics.  
+    Both provide 6-axis sensing (accelerometer + gyroscope), but they differ a lot in performance, 
+    power consumption, and features.
+  </p>
+
+  <h2>Main Specifications</h2>
+  <table>
+    <caption>Comparison of MPU-6050 and LSM6D*</caption>
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>MPU-6050</th>
+        <th>LSM6D*</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Type</td>
+        <td>6-axis IMU (Accel + Gyro)</td>
+        <td>6-axis IMU (Accel + Gyro)</td>
+      </tr>
+      <tr>
+        <td>Gyroscope range</td>
+        <td>±250 … ±2000 dps</td>
+        <td>±125 … ±2000 dps</td>
+      </tr>
+      <tr>
+        <td>Accelerometer range</td>
+        <td>±2/±4/±8/±16 g</td>
+        <td>±2/±4/±8/±16 g</td>
+      </tr>
+      <tr>
+        <td>ODR (sampling rate)</td>
+        <td>~1 kHz</td>
+        <td>1.6–6.7 kHz (depending on model)</td>
+      </tr>
+      <tr>
+        <td>Noise</td>
+        <td>Higher (older generation)</td>
+        <td>Lower, more stable</td>
+      </tr>
+      <tr>
+        <td>Interfaces</td>
+        <td>I²C (SPI only in MPU-6000)</td>
+        <td>I²C &amp; SPI</td>
+      </tr>
+      <tr>
+        <td>FIFO</td>
+        <td>~1 KB</td>
+        <td>Larger FIFO + timestamps</td>
+      </tr>
+      <tr>
+        <td>Extra features</td>
+        <td>Basic</td>
+        <td>Pedometer, tap/free-fall, ML core</td>
+      </tr>
+      <tr>
+        <td>Supply voltage</td>
+        <td>2.4–3.46 V</td>
+        <td>1.71–3.6 V</td>
+      </tr>
+      <tr>
+        <td>Power consumption</td>
+        <td>Higher</td>
+        <td>Ultra-low-power modes</td>
+      </tr>
+      <tr>
+        <td>Package size</td>
+        <td>Larger legacy package</td>
+        <td>Smaller (2.5 × 3.0 mm)</td>
+      </tr>
+      <tr>
+        <td>Cost</td>
+        <td>Very cheap, lots of clones</td>
+        <td>More expensive, stable quality</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Discussion</h2>
+  <div class="highlight">
+    <p>
+      <strong>MPU-6050</strong> is a classic chip and still extremely popular in the maker community. 
+      Its strengths are price, huge availability, and a ton of existing Arduino libraries. 
+      Downsides: relatively high noise, higher power draw, and no SPI interface in the 6050 version.
+    </p>
+    <p>
+      <strong>LSM6D*</strong> is a modern IMU line from ST. It offers lower noise, wider ODR range, 
+      works at lower voltages, has ultra-low-power modes, and comes with built-in functions like 
+      step detection, tap recognition, and even a small machine learning core in some variants.
+    </p>
+  </div>
+
+  <h2>Best Use Cases</h2>
+  <ul>
+    <li><strong>MPU-6050</strong>: great for DIY, prototypes, and cost-sensitive projects.</li>
+    <li><strong>LSM6D*</strong>: ideal for wearables, drones, robotics, and any application that needs stability and low power consumption.</li>
+  </ul>
+
+</body>
+</html>
+
