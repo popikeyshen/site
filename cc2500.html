@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Why I use the CC2500 transceiver in my projects">
+  <title>Why I Use the CC2500 in My Projects</title>
+  <style>
+    :root{
+      --bg: #fafafa;
+      --fg: #222;
+      --card: #ffffff;
+      --border: #e5e7eb;
+      --shadow: 0 2px 6px rgba(0,0,0,0.08);
+      --radius: 8px;
+
+      /* Eclipse-like editor palette (light) */
+      --e-toolbar: #dcdfe4;          /* Eclipse light toolbar */
+      --e-toolbar-border: #c6cbd1;
+      --e-editor-bg: #ffffff;
+      --e-gutter-bg: #f3f4f6;
+      --e-gutter-fg: #7b8794;
+
+      /* Syntax colors (typical Eclipse CDT/JDT-ish) */
+      --c-default: #1f2937;          /* code text */
+      --c-key: #0000aa;              /* keywords */
+      --c-type: #2a62b8;             /* types/macros */
+      --c-str: #2a7b2e;              /* strings */
+      --c-num: #7a3ea1;              /* numbers */
+      --c-cmt: #6a737d;              /* comments (gray) */
+      --c-pp:  #803f9f;              /* preprocessor */
+    }
+
+    *{ box-sizing: border-box; }
+    body{
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      margin: 0 auto;
+      padding: 2rem;
+      max-width: 900px;
+      line-height: 1.6;
+    }
+
+    h1{ text-align:center; margin-bottom:.5rem; }
+    h2{
+      margin-top: 2rem;
+      border-bottom: 2px solid #eee;
+      padding-bottom: .3rem;
+    }
+
+    img.hero{
+      display:block; margin: 1rem auto; max-width: 320px;
+      border-radius: 8px; box-shadow: var(--shadow);
+    }
+
+    table{ border-collapse: collapse; width:100%; margin:1.5rem 0; }
+    th, td{ border:1px solid #ccc; padding:.6rem; text-align:center; }
+    th{ background:#f2f2f2; }
+    caption{ font-weight: bold; margin-bottom:.5rem; }
+
+    /* -------- Eclipse-like code block -------- */
+    .eclipse{
+      margin: 1rem 0 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .eclipse .toolbar{
+      display:flex; align-items:center; gap:.5rem;
+      background: var(--e-toolbar);
+      border-bottom: 1px solid var(--e-toolbar-border);
+      padding: .45rem .6rem;
+      font-size: 0.95rem;
+      color: #111827;
+    }
+    .eclipse .toolbar .title{
+      font-weight: 600;
+      margin-right: auto;
+    }
+    .eclipse .toolbar .ctl{
+      display:inline-flex; align-items:center; justify-content:center;
+      width: 26px; height: 22px; border-radius:4px;
+      background: #eef1f5; border: 1px solid #cbd5e1;
+      font-size: 12px; color: #374151; user-select:none;
+    }
+    .eclipse .toolbar .ctl:hover{ background: #e7ebf1; }
+
+    /* Editor area with gutter (line numbers) */
+    .editor{
+      display:grid;
+      grid-template-columns: 48px 1fr;
+      background: var(--e-editor-bg);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+    .gutter{
+      background: var(--e-gutter-bg);
+      color: var(--e-gutter-fg);
+      padding: 10px 0;
+      border-right: 1px solid #e5e7eb;
+      counter-reset: ln;
+    }
+    .gutter .ln{
+      counter-increment: ln;
+      padding: 0 10px;
+      height: 1.45rem;
+      line-height: 1.45rem;
+      text-align: right;
+      user-select: none;
+    }
+    .code{
+      padding: 10px 14px;
+      color: var(--c-default);
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    /* Simple token classes */
+    .kw{ color: var(--c-key); font-weight: 600; }
+    .tp{ color: var(--c-type); }
+    .str{ color: var(--c-str); }
+    .num{ color: var(--c-num); }
+    .cmt{ color: var(--c-cmt); font-style: italic; }
+    .pp{ color: var(--c-pp); }
+
+    /* inline code */
+    code{
+      background:#eef2f7; border:1px solid var(--border);
+      padding: 2px 6px; border-radius: 4px; font-size: .95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Why I Use the CC2500 in My Projects</h1>
+  <img class="hero" src="cc2500.png" alt="CC2500 RF transceiver module"/>
+
+  <p>
+    The <strong>CC2500</strong> is a 2.4&nbsp;GHz transceiver by Texas Instruments.
+    I mostly use it as a <strong>receiver</strong> for my prototypes.
+    I work with different frequency bands in my hardware experiments, but the 2.4&nbsp;GHz band is
+    particularly convenient for <em>fast prototyping</em> — unlicensed ISM band, compact antennas, and stable modules.
+    The CC2500 chip fits this workflow perfectly thanks to its flexibility and direct register control.
+  </p>
+
+  <h2>Key Specs (from the Datasheet)</h2>
+  <ul>
+    <li><strong>Frequency:</strong> 2.4&nbsp;GHz ISM (≈2400–2483.5&nbsp;MHz)</li>
+    <li><strong>Modulations:</strong> 2-FSK, GFSK, MSK, OOK</li>
+    <li><strong>Data rate:</strong> up to low-Mbps (config-dependent)</li>
+    <li><strong>RSSI/LQI:</strong> via status registers</li>
+    <li><strong>Channel filter bandwidth:</strong> set with <code>MDMCFG4[CHANBW_E:CHANBW_M]</code>; with a 26&nbsp;MHz crystal typical options ≈ <em>~58&nbsp;kHz … ~812&nbsp;kHz</em></li>
+    <li><strong>Supply voltage:</strong> ≈1.8&nbsp;V – 3.6&nbsp;V (check your module)</li>
+    <li><strong>SPI control, AGC, packet handler,</strong> flexible channel spacing</li>
+  </ul>
+
+  <img class="hero" src="cc2500_2.png" alt="CC2500 block diagram (datasheet image)"/>
+
+
+  <h2>CC2500 vs nRF24L01</h2>
+  <table>
+    <caption>Comparison of 2.4&nbsp;GHz transceivers</caption>
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>CC2500</th>
+        <th>nRF24L01</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Type</td><td>2.4&nbsp;GHz transceiver (multi-modulation)</td><td>2.4&nbsp;GHz transceiver (packet-based)</td></tr>
+      <tr><td>Modulation</td><td>2-FSK / GFSK / MSK / OOK</td><td>GFSK only</td></tr>
+      <tr><td>RSSI readout</td><td><strong>Yes</strong> (real-time RSSI per channel)</td><td>No (not exposed)</td></tr>
+      <tr><td>Channel scanning</td><td>Easy sweeping &amp; logging RSSI</td><td>Limited to active link channels</td></tr>
+      <tr><td>Integration level</td><td>Low-level &amp; flexible</td><td>High-level link-focused</td></tr>
+      <tr><td>Best use</td><td>Spectrum experiments, analysis</td><td>Simple MCU-to-MCU links</td></tr>
+    </tbody>
+  </table>
+
+  <p>
+    I use the <strong>CC2500</strong> mainly because it exposes a reliable <strong>RSSI</strong> register.
+    That enables simple spectrum analyzers, real-time signal visualization, and channel activity detection —
+    something the nRF24L01 cannot do. For prototyping and testing, that single feature is decisive.
+  </p>
+
+
+<h2>Setup Frequency</h2>
+
+<p>
+  The CC2500 determines its actual RF output or reception frequency as:
+</p>
+
+<pre style="background:#f8fafc; border:1px solid #e5e7eb; border-radius:6px; padding:10px 14px; font-family:monospace;">
+f<sub>RF</sub> = f<sub>base</sub> + CHANNR × CHANSPC
+</pre>
+
+<p>
+  In other words, the total frequency is built from three components:
+</p>
+
+<ul>
+  <li>
+    <strong>Base frequency (<code>f_base</code>)</strong> — defined by three registers 
+    <code>FREQ2</code>, <code>FREQ1</code>, and <code>FREQ0</code>.  
+    Together they form a 24-bit number (<code>FREQ[23:0]</code>), which determines the starting point of the synthesizer.  
+    Its absolute value is calculated as:
+    <br>
+    <code>f_base = FREQ × f_XOSC / 2¹⁶</code>
+  </li>
+
+  <li>
+    <strong>Channel number (<code>CHANNR</code>)</strong> — an 8-bit register that selects the current channel index.  
+    Each step increases (or decreases) the final frequency by one channel spacing step.  
+    For example, <code>CHANNR = 0</code> gives the base frequency; <code>CHANNR = 10</code> adds ten channel spacings.
+  </li>
+
+  <li>
+    <strong>Channel spacing (<code>CHANSPC</code>)</strong> — determined by two registers:
+    <code>MDMCFG1[1:0]</code> (the exponent) and <code>MDMCFG0</code> (the mantissa).  
+    Together they set the step in Hz between adjacent channels, using the TI formula:
+    <br>
+    <code>CHANSPC = f_XOSC / 2¹⁸ × (256 + MDMCFG0) × 2<sup>MDMCFG1[1:0]</sup></code>
+  </li>
+</ul>
+
+<p>
+  So, for every channel the CC2500 tunes to:
+</p>
+
+<pre style="background:#f8fafc; border:1px solid #e5e7eb; border-radius:6px; padding:10px 14px; font-family:monospace;">
+f_RF = (FREQ × f_XOSC / 2¹⁶) + CHANNR × (f_XOSC / 2¹⁸ × (256 + MDMCFG0) × 2<sup>MDMCFG1[1:0]</sup>)
+</pre>
+
+<p>
+  These parameters together fully define the synthesizer configuration.  
+  Adjusting <code>FREQ2:0</code> changes the entire frequency band;  
+  <code>CHANNR</code> moves across channels within that band;  
+  <code>MDMCFG1:0</code> controls how far apart those channels are.
+</p>
+
+
+    <div class="editor">
+      <!-- Gutter with line numbers -->
+      <div class="gutter" aria-hidden="true">
+        <!-- 34 lines for example; add/remove as needed -->
+        <div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div>
+        <div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div>
+        <div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div>
+        <div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div>
+        <div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div>
+        <div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div>
+        <div class="ln"></div><div class="ln"></div><div class="ln"></div><div class="ln"></div>
+      </div>
+
+      <!-- Code -->
+      <div class="code"><span class="pp">#ifndef</span> <span class="tp">MDMCFG0</span>
+<span class="pp">#define</span> <span class="tp">MDMCFG0</span>   <span class="num">0x14</span>
+<span class="pp">#define</span> <span class="tp">MDMCFG1</span>   <span class="num">0x13</span>
+<span class="pp">#define</span> <span class="tp">FREQ2</span>     <span class="num">0x0D</span>
+<span class="pp">#define</span> <span class="tp">FREQ1</span>     <span class="num">0x0E</span>
+<span class="pp">#define</span> <span class="tp">FREQ0</span>     <span class="num">0x0F</span>
+<span class="pp">#define</span> <span class="tp">CHANNR</span>    <span class="num">0x0A</span>
+<span class="pp">#endif</span>
+
+<span class="tp">static const double</span> <span class="tp">FXOSC</span> = <span class="num">26e6</span>; <span class="cmt">// 26 MHz crystal</span>
+
+<span class="cmt">// Channel spacing (CHANSPC) in Hz</span>
+<span class="tp">double</span> <span class="kw">cc2500_getChanSpc_Hz</span>() {
+  <span class="tp">uint8_t</span> mdmcfg1 = cc2500_readReg(<span class="tp">MDMCFG1</span>);
+  <span class="tp">uint8_t</span> mdmcfg0 = cc2500_readReg(<span class="tp">MDMCFG0</span>);
+  <span class="tp">uint8_t</span> CHANSPC_E = mdmcfg1 &amp; <span class="num">0x03</span>;      <span class="cmt">// [1:0]</span>
+  <span class="tp">uint8_t</span> CHANSPC_M = mdmcfg0;                   <span class="cmt">// [7:0]</span>
+  <span class="cmt">// TI: CHANSPC = fXOSC / 2^18 * (256 + M) * 2^E</span>
+  <span class="tp">double</span> base = <span class="tp">FXOSC</span> / <span class="num">262144.0</span>;      <span class="cmt">// 2^18</span>
+  <span class="kw">return</span> base * (<span class="num">256.0</span> + CHANSPC_M) * (<span class="num">1</span> &lt;&lt; CHANSPC_E);
+}
+
+<span class="cmt">// Actual RF (with CHANNR), in Hz</span>
+<span class="tp">double</span> <span class="kw">cc2500_getRF_Hz</span>() {
+  <span class="tp">uint8_t</span> f2 = cc2500_readReg(<span class="tp">FREQ2</span>);
+  <span class="tp">uint8_t</span> f1 = cc2500_readReg(<span class="tp">FREQ1</span>);
+  <span class="tp">uint8_t</span> f0 = cc2500_readReg(<span class="tp">FREQ0</span>);
+  <span class="tp">uint32_t</span> FREQ = ((<span class="tp">uint32_t</span>)f2 &lt;&lt; <span class="num">16</span>) | ((<span class="tp">uint32_t</span>)f1 &lt;&lt; <span class="num">8</span>) | f0;
+  <span class="tp">double</span> f_base = (<span class="tp">double</span>)FREQ * <span class="tp">FXOSC</span> / <span class="num">65536.0</span>;
+  <span class="tp">uint8_t</span> ch = cc2500_readReg(<span class="tp">CHANNR</span>);
+  <span class="tp">double</span> chspc = cc2500_getChanSpc_Hz();
+  <span class="kw">return</span> f_base + ch * chspc;
+}
+
+<span class="tp">void</span> <span class="kw">cc2500_printWhereWeAre</span>() {
+  <span class="tp">double</span> chspc = cc2500_getChanSpc_Hz();
+  <span class="tp">double</span> rf    = cc2500_getRF_Hz();
+  <span class="tp">uint8_t</span> ch   = cc2500_readReg(<span class="tp">CHANNR</span>);
+  <span class="tp">uint8_t</span> f2 = cc2500_readReg(<span class="tp">FREQ2</span>), f1 = cc2500_readReg(<span class="tp">FREQ1</span>), f0 = cc2500_readReg(<span class="tp">FREQ0</span>);
+
+  Serial.print(F(<span class="str">"FREQ2:0 = "</span>));
+  Serial.print(f2,HEX); Serial.print(<span class="str">' '</span>);
+  Serial.print(f1,HEX); Serial.print(<span class="str">' '</span>);
+  Serial.println(f0,HEX);
+
+  Serial.print(F(<span class="str">"CHANNR = "</span>)); Serial.println(ch);
+  Serial.print(F(<span class="str">"CHANSPC ≈ "</span>)); Serial.print(chspc/<span class="num">1e3</span>,<span class="num">1</span>); Serial.println(F(<span class="str">" kHz"</span>));
+  Serial.print(F(<span class="str">"RF ≈ "</span>)); Serial.print(rf/<span class="num">1e6</span>,<span class="num">3</span>); Serial.println(F(<span class="str">" MHz"</span>));
+}
+</div>
+    </div>
+
+
+  <p>
+    Tip: in a sweep, program <code>FREQ2:0</code>, <code>MDMCFG1:0</code>, <code>CHANNR</code>, do <code>SCAL</code> (or enable <code>MCSM0.FS_AUTOCAL</code>),
+    enter RX, read <code>RSSI</code>, then move to the next channel.
+  </p>
+
+
+<h2>How the Real Prototype Works</h2>
+
+<style>
+  .proto-wrap{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items:start;
+    margin: 1rem 0 0.5rem;
+  }
+  .proto-wrap figure{
+    margin:0;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+    box-shadow:0 2px 6px rgba(0,0,0,0.08);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    height:100%;
+  }
+
+  /* рівна зона для зображення */
+  .img-box {
+    width:100%;
+    aspect-ratio: 2 / 1.55;  /* пропорції  */
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .img-box img{
+    width:100%;
+    height:100%;
+    object-fit:contain;  /* не обрізати */
+    background:white;
+  }
+
+  .proto-wrap figcaption{
+    font-size:0.9rem;
+    color:#444;
+    padding:8px 10px;
+    border-top:1px solid #eee;
+    background:#fafafa;
+    text-align:center;
+  }
+
+  @media (max-width: 820px){
+    .proto-wrap{ grid-template-columns: 1fr; }
+  }
+
+  .proto-notes{
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-radius:8px;
+    padding:12px 14px;
+    margin-top:10px;
+  }
+</style>
+
+
+<div class="proto-wrap">
+  <figure>
+    <div class="img-box">
+      <img src="cc2500_proto.png" alt="CC2500-based prototype photo">
+    </div>
+    <figcaption>My custom CC2500 board: SMA connector, 26&nbsp;MHz crystal, and matching network for 2.4&nbsp;GHz.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="img-box">
+      <img src="spectrogram.gif" alt="Scrolling spectrogram GIF from the prototype">
+    </div>
+    <figcaption>Live RSSI sweep from CC2500</figcaption>
+  </figure>
+</div>
+
+
+
+
+  <p><strong>Prototype overview:</strong></p>
+  <ul>
+    <li>The board uses a <strong>CC2500</strong> transceiver connected via SPI to a microcontroller and powered at 3.3 V.</li>
+    <li>A compact 2.4 GHz antenna with SMA connector provides good matching for lab tests.</li>
+    <li>During scanning, the MCU iterates over <code>CHANNR</code> while reading <code>RSSI</code> — forming a full-band spectrum view in real time.</li>
+    <li>The collected data is visualized on a Python plot with integration modes (<em>decay</em>, <em>sumN</em>, <em>peakN</em>) to highlight weak or transient signals.</li>
+    <li>This setup demonstrates how even a simple PCB + CC2500 + antenna can become a functional low-cost spectrum analyzer prototype.</li>
+  </ul>
+
+
+
+</body>
+</html>
+
