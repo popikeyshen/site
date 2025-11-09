@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Мій досвід із дронами — від першого проекту до автономних систем.">
+  <title>Мій досвід з дронами</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0 auto;
+      padding: 2rem;
+      max-width: 900px;
+      background: #fafafa;
+      color: #222;
+    }
+    h1 { text-align: center; margin-bottom: 0.5rem; }
+    img.hero {
+      display: block;
+      margin: 1rem auto;
+      max-width: 600px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    h2 {
+      margin-top: 2rem;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 0.3rem;
+    }
+    p { margin: 1rem 0; }
+    ul { margin-left: 1.2rem; }
+    .highlight {
+      background: #f4f9ff;
+      border-left: 4px solid #0066cc;
+      padding: 1rem;
+      margin: 1.5rem 0;
+    }
+    .proto-wrap {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    figure {
+      margin: 0;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      overflow: hidden;
+      max-width: 600px;
+    }
+    figure img { width: 100%; height: auto; display: block; }
+    figure figcaption {
+      font-size: 0.9rem;
+      color: #444;
+      padding: 8px 10px;
+      border-top: 1px solid #eee;
+      background: #fafafa;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Мій досвід з дронами</h1>
+
+  <h2>1. Мій перший дрон</h2>
+
+  <div class="proto-wrap">
+    <figure>
+     
+      <img src="drone1b.png" alt="Мій перший дрон на Pixhawk">
+      <figcaption>Мій перший кастомний дрон (2016–2017)</figcaption>
+    </figure>
+  </div>
+
+  <p>
+    У <strong>2016–2017 роках</strong> я розробив свій перший дрон на базі <strong>Pixhawk</strong>.  
+    На той час у мене була доволі амбітна мета — створити автономний дрон доставщик, або персональний пристрій, 
+    який міг би допомагати людині в побуті чи доставляти дрібні речі. Мета можливо була занадто амбітна, як для молодого не досвідченого студента якому було дорого купувати детальки до дрона за 100-200 доларів.
+  </p>
+  </p>
+ Зате я навчився працювати з усіма базовими компонентами дрона — передавачем і приймачем, польотним контролером, 
+      ESC, живленням, камерою, підвісом, GPS-модулем і телеметрією.  
+      Зрештою я почав експериментувати з його <strong>автономністю</strong> — намагався навчити дрон літати за маршрутом і стабілізуватися без участі людини,  
+      хоча розумів, що для цього мені бракує практичного досвіду.
+  </p>
+
+
+
+  <p>
+    Після того, як дрон стабільно піднявся у повітря, я почав працювати над його <strong>автономністю</strong>: 
+    експериментував із автопілотом, комп’ютерним зором та алгоритмами стабілізації.  
+    З того часу мене почала цікавити інтеграція <strong>ML-систем</strong> у дрони — від простого трекінгу об’єктів до аналізу навколишнього середовища.
+    Хоч і маленькі комп"ютерни по типу разбері пі були досить слабкими на той момент, а нейронні мережі менш ефективними, можна було використовувати вже тоді зв"язку піксхавк та разбері та досягти автономності з комп"ютерним зором використовуючи python drone kit або протокол MAVLINK для керування польотним комп"ютером з разбері.
+  </p>
+
+
+  <div class="proto-wrap">
+    <figure>
+     
+      <img src="pi-pixhawk.png" alt="Мій перший дрон на Pixhawk">
+      <figcaption>pixhawk + rpi</figcaption>
+    </figure>
+  </div>
+
+
+  <p>
+    Цей перший проект став основою мого подальшого інтересу до <strong>embedded-технологій, комп’ютерного зору </strong>.
+  </p>
+
+
+  <h2>2. Другий дрон</h2>
+
+
+  <div class="proto-wrap">
+    <figure>
+     
+      <img src="raybird.png" alt="Raybird-3 Skyeton">
+      <figcaption>Мій перший комерційний досвід був з дроном Raybird-3 від компанії Skyeton</figcaption>
+    </figure>
+  </div>
+
+  <p>
+    Щоб набратися справжнього професійного досвіду, я влаштувався працювати у компанію <strong>Skyeton</strong>, 
+    де займався розробкою програмної логіки для дрона <strong>Raybird-3</strong>.  
+    Моя робота стосувалася створення алгоритмів польоту за маршрутом, керування автономною посадкою 
+    та вдосконалення систем стабілізації.
+  </p>
+
+  <p>
+    Я працював переважно з <strong>C++</strong> і симуляційним середовищем, у якому тестував поведінку дрона перед реальними польотами.  
+    Також здобув досвід у <strong>налагодженні польотних контролерів, створенні прошивок</strong> і 
+    <strong>роботі з підвісом камери</strong>.
+  </p>
+
+  <div class="proto-wrap">
+
+     
+      <img src="example1.png" alt="SITL simulator"
+                   style="width:1000px; height:auto; border-radius:8px; box-shadow:0 2px 6px rgba(0,0,0,0.15);">
+                   
+      <figcaption>SITL example</figcaption>
+  
+  </div>
+
+    <p>
+      Цей етап став моїм першим кроком у комерційну розробку безпілотників, і дав мені відчуття, 
+      що автономні системи — це не просто захоплення, а професійна сфера, у якій я хочу розвиватися далі.
+    </p>
+
+  <h2>3. Третій дрон</h2>
+
+  <div class="proto-wrap">
+    <figure>
+     
+      <img src="HAWK.png" alt="HAWK UAV">
+      <figcaption>HAWK</figcaption>
+    </figure>
+  </div>
+  
+  <p>
+    Далі я працював в компаніх Ukraviasystems де розробляв переважно алгоритми комп"ютерного зору. Це трекери, детектори об"єктів на основі нейронних мереж та <strong>алгоритми детекції рухомих об"єктів здатні працювати на рухомій камері</strong>.
+      </p>
+      
+    <div class="proto-wrap">
+    <figure>
+    <img src="output_fast.gif" alt="Test">
+     <figcaption>Невеличке відео з тестів. До того як почали тестувати на дроні в реальних польотах - це тестувалось на камері з квартири</figcaption>
+     </figure>
+    </div> 
+      
+      <p>  
+       Також доводилось трошки працювати з хардверною частиною для того щоб проект став можливим - потрібно було зробити плату конектор між польотним контроллером та комп"ютером на якому відбувались обчислення. А також досвід з реверс інжинірінгу протоколу камери підвісу з термальним режимом, яка керувалась до якої не було документації. 
+ </p>
+  
+    <p>
+    В цій компанії я отримав можливо найбільше досвіду тестуючи та проектуючи різні компоненти по всьому пайплайну.
+      </p>
+  <div class="proto-wrap">
+    <figure>
+     
+     <img src="hawk2.png" alt="HAWK UAV">
+      <figcaption>HAWK</figcaption>
+    </figure>
+  </div>
+  
+  <h2>4. Четвертий дрон?</h2>
+
+      <p>
+    Потім до початку вторгнення всі мої робочі проекти стовувались ML / Computer Vision розробки, а дрон був як хоббі. Але війна внесла свої зміни.  
+      </p>
+
+  <div class="proto-wrap">
+    <figure>
+     
+     <img src="gimbal.png" alt="Gimbal Camera">
+      <figcaption>Gimbal Camera</figcaption>
+    </figure>
+  </div>
+  
+        <p>
+        Тому були інші проекти з Gimbal Camera та розробкою трекера під нього для знайомих
+        </p>
+
+  <div class="proto-wrap">
+    <figure>
+     
+     <img src="tracker.png" alt="tracker">
+      <figcaption>tracker + telemetry</figcaption>
+    </figure>
+  </div>
+
+  <h2>5. Пятий?</h2>
+
+        <p>
+        Так як я маю унікальний досвід з дронами. То хотілось зробити шось таке що перекриє незакриті ніші які можуть закрити лише люди з таким досвідом як я. Тому в вільний від роботи час в 2025 займався розробкою прототипу для протидії дронам. 
+        </p>
+
+
+
+  <div class="proto-wrap">
+    <figure>
+     
+     <img src="prototype.png" alt="prototype">
+      <figcaption>prototype</figcaption>
+    </figure>
+  </div>
+  
+   <h2>Висновок</h2>
+
+        <p>
+        Загалом я маю досвід з різними донами - коптерами, крилами, саморобними, професійними. Можу спроектувати шось починаючи від найменшої частинки як мікросхеми і протоколів зв"язку з нею разом з платою, завершуючи високорівневим софтом керування цілим дроном на с++ як автопілот, або на пайтон нейронну модель і пайплайни зв"язку та керування дроном. Досвід Embedded + ML + dones все те що зараз багатьом потрібно і на такому рівні який не знайдеш - тому радий почути пропозиції до співпраці.
+        </p>
+
+</body>
+</html>
